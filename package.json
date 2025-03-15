@@ -17,6 +17,7 @@
     "next-auth": "^4.24.11",
     "openai": "^4.87.3",
     "pg": "^8.13.3",
+    "prisma": "^6.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",

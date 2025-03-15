@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '@/styles/BookingDetails.module.css';
 
 const BookingDetails = ({ bookingDetails, setBookingDetails, onSubmit, onCancel }) => {
     return (

@@ -234,8 +234,8 @@ const SubServicesPage = () => {
                         <div key={subService._id} className={styles.subServiceCard}>
                             <div className={styles.cardImage}>
                                 <Image
-                                    src={subService.image || '/default-service.jpg'}
-                                    alt={subService.title}
+                                    src={subService.image || '/download.jpg'}
+                                    alt={'subservice image'}
                                     width={300}
                                     height={200}
                                     objectFit="cover"

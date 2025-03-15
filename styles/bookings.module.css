@@ -1,0 +1,322 @@
+.container {
+    max-width: 1200px;
+    margin: 6rem auto 3rem;
+    padding: 0 1.5rem;
+    min-height: calc(100vh - 250px);
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.title::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background: #3498db;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.bookingCount {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #606770;
+    margin-bottom: 2rem;
+}
+
+.bookingCount span {
+    font-weight: 600;
+    color: #3498db;
+}
+
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+}
+
+.loadingContainer p {
+    margin-top: 1.5rem;
+    color: #555;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.loadingSpinner {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.loadingSpinner:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #3498db;
+    border-color: #3498db transparent #3498db transparent;
+    animation: loadingSpinner 1.2s linear infinite;
+}
+
+@keyframes loadingSpinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(to bottom, #ffffff, #f5f7fa);
+    border-radius: 12px;
+    margin: 3rem 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.emptyState h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.emptyState p {
+    font-size: 1.2rem;
+    color: #606770;
+    margin: 0 0 2rem;
+}
+
+.actionButton {
+    display: inline-block;
+    background: linear-gradient(to right, #3498db, #2980b9);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.actionButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+}
+
+.bookingsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2.5rem;
+    padding: 1rem 0;
+}
+
+.bookingCard {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+}
+
+.bookingCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.bookingCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to right, #3498db, #1abc9c);
+}
+
+.bookingHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.serviceInfo {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.serviceInfo h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.serviceInfo h4 {
+    margin: 0.35rem 0 0;
+    color: #7f8c8d;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.status {
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.pending {
+    background: linear-gradient(135deg, #fff8e1, #ffe0b2);
+    color: #e65100;
+}
+
+.confirmed {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    color: #2e7d32;
+}
+
+.completed {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    color: #1565c0;
+}
+
+.cancelled {
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+    color: #c62828;
+}
+
+.bookingDetails {
+    margin: 1.5rem 0;
+}
+
+.bookingDetails p {
+    margin: 0.8rem 0;
+    color: #4a4a4a;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+}
+
+.bookingDetails span {
+    margin-left: 0.5rem;
+}
+
+.bookingDetails strong {
+    color: #2c3e50;
+    font-weight: 600;
+    min-width: 80px;
+    display: inline-block;
+}
+
+.price {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.bookingFooter {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #eef2f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bookingId {
+    font-size: 0.9rem;
+    color: #95a5a6;
+    font-weight: 500;
+}
+
+.viewService {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+    color: #3498db;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.viewService:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 5rem auto 2rem;
+    }
+
+    .bookingsGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .serviceInfo h3 {
+        font-size: 1.2rem;
+    }
+
+    .serviceInfo h4 {
+        font-size: 1rem;
+    }
+    
+    .bookingDetails p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .title {
+        font-size: 1.8rem;
+    }
+    
+    .bookingCard {
+        padding: 1.5rem;
+    }
+    
+    .viewService, .actionButton {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+} 
