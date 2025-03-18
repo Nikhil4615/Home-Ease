@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { toast } from 'react-toastify';
 import Link from 'next/link'; // Import Link from Next.js
 import Image from 'next/image';
-import './Navbar.css'; // Assuming you have some CSS for styling
+import styles from './Navbar.module.css';
 import { showToast } from '@/utils/toast';
 import { useRouter } from 'next/navigation'; // Add this import
 
@@ -134,20 +133,20 @@ const Navbar = () => {
         
         if (!user?.image) {
             return (
-                <div className={`profile-initial ${size === 'large' ? 'profile-initial-large' : ''}`}>
+                <div className={`${styles['profile-initial']} ${size === 'large' ? styles['profile-initial-large'] : ''}`}>
                     {user?.name?.[0] || user?.email?.[0] || 'U'}
                 </div>
             );
         }
 
         return (
-            <div className={`profile-image-container ${size === 'large' ? 'profile-image-large' : ''}`}>
+            <div className={`${styles['profile-image-container']} ${size === 'large' ? styles['profile-image-large'] : ''}`}>
                 <Image
                     src={user.image}
                     alt="Profile"
                     width={imageSize}
                     height={imageSize}
-                    className="profile-avatar"
+                    className={styles['profile-avatar']}
                     priority={size === 'small'}
                     onError={(e) => {
                         e.target.onerror = null;
@@ -159,41 +158,41 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
-            <div className="navbar-left">
-                <Link href="/" className="logo-link">
-                    <div className="logo-container">
+        <nav className={`${styles.navbar} ${styles['fixed-navbar']} ${scrolled ? styles['navbar-scrolled'] : ''}`}>
+            <div className={styles['navbar-left']}>
+                <Link href="/" className={styles['logo-link']}>
+                    <div className={styles['logo-container']}>
                         <Image
                             src="/logo.png"
                             alt="Logo"
                             width={60}
                             height={60}
-                            className="nav-logo"
+                            className={styles['nav-logo']}
                             priority
                         />
-                        <span className="site-name">HomeEase</span>
+                        <span className={styles['site-name']}>HomeEase</span>
                     </div>
                 </Link>
             </div>
-            <div className="navbar-right">
-                <Link href="/cart" className="cart-link">
-                    <div className="cart-icon-container">
+            <div className={styles['navbar-right']}>
+                <Link href="/cart" className={styles['cart-link']}>
+                    <div className={styles['cart-icon-container']}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeWidth="2" d="M3 3h2l3 9h12l1.5 3H8.25M6 21a2 2 0 100-4 2 2 0 000 4zm12 0a2 2 0 100-4 2 2 0 000 4z" />
                         </svg>
                         {cartCount > 0 && (
-                            <span className="cart-count">{cartCount}</span>
+                            <span className={styles['cart-count']}>{cartCount}</span>
                         )}
                     </div>
                 </Link>
                 {loading ? (
-                    <div className="loading-indicator">
-                        <div className="loading-spinner"></div>
+                    <div className={styles['loading-indicator']}>
+                        <div className={styles['loading-spinner']}></div>
                     </div>
                 ) : session?.user ? (
-                    <div className="user-profile">
+                    <div className={styles['user-profile']}>
                         <button 
-                            className="profile-circle"
+                            className={styles['profile-circle']}
                             onClick={() => setShowProfile(!showProfile)}
                             aria-expanded={showProfile}
                             aria-label="Toggle profile menu"
@@ -202,23 +201,23 @@ const Navbar = () => {
                         </button>
                         
                         {showProfile && (
-                            <div className="profile-dropdown" onMouseLeave={() => setShowProfile(false)}>
-                                <div className="profile-header">
-                                    <div className="profile-info">
-                                        <div className="profile-avatar-large">
+                            <div className={styles['profile-dropdown']} onMouseLeave={() => setShowProfile(false)}>
+                                <div className={styles['profile-header']}>
+                                    <div className={styles['profile-info']}>
+                                        <div className={styles['profile-avatar-large']}>
                                             <ProfileImage user={session.user} size="large" />
                                         </div>
-                                        <div className="profile-details">
+                                        <div className={styles['profile-details']}>
                                             <h2>{session.user.name || 'User'}</h2>
                                             <p>{session.user.email}</p>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div className="profile-content">
+                                <div className={styles['profile-content']}>
                                     <Link 
                                         href="/pages/profile" 
-                                        className="profile-link"
+                                        className={styles['profile-link']}
                                         onClick={() => setShowProfile(false)}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -230,7 +229,7 @@ const Navbar = () => {
                                     
                                     <Link 
                                         href="/bookings" 
-                                        className="profile-link"
+                                        className={styles['profile-link']}
                                         onClick={() => setShowProfile(false)}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -246,7 +245,7 @@ const Navbar = () => {
                                     {session?.user?.isAdmin && (
                                         <Link 
                                             href="/admin" 
-                                            className="profile-link"
+                                            className={styles['profile-link']}
                                             onClick={() => setShowProfile(false)}
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -262,7 +261,7 @@ const Navbar = () => {
                                 <button 
                                     type="button"
                                     onClick={handleLogout}
-                                    className="logout-button"
+                                    className={styles['logout-button']}
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -277,7 +276,7 @@ const Navbar = () => {
                 ) : (
                     <button 
                         onClick={handleGoogleLogin}
-                        className="login-button"
+                        className={styles['login-button']}
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>

@@ -430,8 +430,8 @@ export default function ProfilePage() {
           <p>Last login: {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'N/A'}</p>
         </div>
         
-        {/* Admin Toggle for Development */}
-        <AdminToggle />
+        {/* Admin Toggle for Development - Only show for admin users */}
+        {session?.user?.isAdmin && <AdminToggle />}
       </div>
     </Layout>
   );

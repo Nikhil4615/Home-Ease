@@ -95,11 +95,11 @@ const Footer = () => {
                 <div className="footerSection">
                     <h3 className="footerHeading">Services</h3>
                     <ul className="footerLinks">
-                        <li><Link href="/services/cleaning" className="footerLink">Cleaning</Link></li>
-                        <li><Link href="/services/plumbing" className="footerLink">Plumbing</Link></li>
-                        <li><Link href="/services/electrical" className="footerLink">Electrical</Link></li>
-                        <li><Link href="/services/gardening" className="footerLink">Gardening</Link></li>
-                        <li><Link href="/services/painting" className="footerLink">Painting</Link></li>
+                        <li><Link href="/services" className="footerLink">Cleaning</Link></li>
+                        <li><Link href="/services" className="footerLink">Plumbing</Link></li>
+                        <li><Link href="/services" className="footerLink">Electrical</Link></li>
+                        <li><Link href="/services" className="footerLink">Gardening</Link></li>
+                        <li><Link href="/services" className="footerLink">Painting</Link></li>
                     </ul>
                 </div>
 
