@@ -38,15 +38,68 @@ const Navbar = () => {
         return () => window.removeEventListener('storage', updateCartCount);
     }, []);
 
+    // Add this useEffect to monitor session changes
+    useEffect(() => {
+        if (status === 'authenticated' && session) {
+            console.log('User is authenticated:', session.user);
+        } else if (status === 'unauthenticated') {
+            console.log('User is not authenticated');
+        }
+    }, [session, status]);
+
+    // Near the top of the component, add this console log
+    useEffect(() => {
+        console.log('Auth Status:', {
+            status,
+            hasSession: !!session,
+            user: session?.user ? {
+                name: session.user.name,
+                email: session.user.email,
+                id: session.user.id
+            } : null
+        });
+    }, [session, status]);
+
+    // Add this function to check auth status
+    const checkAuthStatus = async () => {
+        try {
+            const response = await fetch('/api/auth/status');
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Server auth status:', data);
+                
+                // If session is out of sync, refresh the page
+                if (data.authenticated && !session) {
+                    console.log('Session out of sync - authenticated on server but not client');
+                    router.refresh();
+                } else if (!data.authenticated && session) {
+                    console.log('Session out of sync - not authenticated on server but authenticated on client');
+                    router.refresh();
+                }
+            }
+        } catch (error) {
+            console.error('Error checking auth status:', error);
+        }
+    };
+
+    // Run this check when component mounts
+    useEffect(() => {
+        checkAuthStatus();
+    }, []);
+
     const handleGoogleLogin = async () => {
         try {
             showToast.info('Connecting to Google...');
             const result = await signIn('google', { 
                 callbackUrl: '/',
-                redirect: false
+                redirect: true  // Change to true to allow NextAuth to handle the redirect
             });
+            // The code below won't run if redirect is true
             if (result?.error) {
                 throw new Error(result.error);
+            }
+            if (result?.url) {
+                router.push(result.url); // Navigate to the URL if provided
             }
         } catch (error) {
             console.error("Error signing in:", error);
@@ -60,8 +113,9 @@ const Navbar = () => {
             setShowProfile(false);
             await signOut({ 
                 callbackUrl: '/',
-                redirect: false
+                redirect: true  // Change to true to allow NextAuth to handle the redirect
             });
+            // The code below won't run if redirect is true
             localStorage.removeItem('cart');
             showToast.success('Logged out successfully');
             router.refresh();
@@ -187,6 +241,22 @@ const Navbar = () => {
                                         </svg>
                                         <span>My Bookings</span>
                                     </Link>
+
+                                    {/* Admin Dashboard Link - Only shown for admin users */}
+                                    {session?.user?.isAdmin && (
+                                        <Link 
+                                            href="/admin" 
+                                            className="profile-link"
+                                            onClick={() => setShowProfile(false)}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                                <line x1="3" y1="9" x2="21" y2="9"></line>
+                                                <line x1="9" y1="21" x2="9" y2="9"></line>
+                                            </svg>
+                                            <span>Admin Dashboard</span>
+                                        </Link>
+                                    )}
                                 </div>
                                 
                                 <button 

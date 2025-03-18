@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from '@/styles/Cart.module.css';
 import { showToast } from '@/utils/toast';
@@ -10,7 +10,7 @@ import { Layout } from '@/components/Layout';
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user } = useAuth();
+    const { data: session, status } = useSession();
 
     // Load cart items from localStorage
     useEffect(() => {
@@ -69,7 +69,7 @@ const CartPage = () => {
     const renderCartContent = () => {
         if (loading) return <div className={styles.loading}>Loading cart...</div>;
         
-        if (!user) return (
+        if (status !== 'authenticated') return (
             <div className={styles.container}>
                 <h1>Please log in to view your cart</h1>
                 <Link href="/" className={styles.continueLink}>

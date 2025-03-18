@@ -3,6 +3,7 @@ import { Providers } from "./providers";
 import "./globals.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ErrorMessage } from '@/components/ErrorMessage/ErrorMessage';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
           theme="colored"
         />
         <Providers>
+          <ErrorMessage />
           {children}
         </Providers>
       </body>

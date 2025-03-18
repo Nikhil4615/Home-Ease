@@ -31,6 +31,7 @@ export const authOptions = {
                         email: user.email,
                         displayName: user.name,
                         photoURL: user.image,
+                        isAdmin: false, // Default to non-admin
                         createdAt: new Date(),
                         lastLogin: new Date()
                     });
@@ -43,6 +44,7 @@ export const authOptions = {
                 }
 
                 user.id = dbUser._id.toString();
+                user.isAdmin = dbUser.isAdmin; // Add isAdmin to the user object
                 return true;
             } catch (error) {
                 console.error("Sign in error:", error);
@@ -52,6 +54,7 @@ export const authOptions = {
         async session({ session, token }) {
             if (session?.user) {
                 session.user.id = token.id;
+                session.user.isAdmin = token.isAdmin; // Add isAdmin to the session
                 session.accessToken = token.accessToken;
                 session.user.image = token.picture || session.user.image;
             }
@@ -60,6 +63,7 @@ export const authOptions = {
         async jwt({ token, user, account, profile }) {
             if (user) {
                 token.id = user.id;
+                token.isAdmin = user.isAdmin; // Add isAdmin to the token
             }
             if (profile) {
                 token.picture = profile.picture;

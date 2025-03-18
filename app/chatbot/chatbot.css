@@ -40,7 +40,7 @@
     align-items: center;
     gap: 0.5rem;
     font-weight: 500;
-    color: #333;
+    color: #eee;
 }
 
 .close-button {
@@ -48,7 +48,7 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #666;
+    color: #eee;
     padding: 0.2rem;
     line-height: 1;
 }

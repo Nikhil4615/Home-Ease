@@ -7,6 +7,7 @@ import { Layout } from '@/components/Layout';
 import { showToast } from '@/utils/toast';
 import styles from '@/styles/Profile.module.css';
 import { useRouter } from 'next/navigation';
+import { AdminToggle } from '@/components/AdminToggle/AdminToggle';
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -428,6 +429,9 @@ export default function ProfilePage() {
           <p>Account created: {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</p>
           <p>Last login: {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'N/A'}</p>
         </div>
+        
+        {/* Admin Toggle for Development */}
+        <AdminToggle />
       </div>
     </Layout>
   );

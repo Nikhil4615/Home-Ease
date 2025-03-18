@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     photoURL: {
         type: String,
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
     addresses: [{
         street: String,
         city: String,

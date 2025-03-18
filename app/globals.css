@@ -76,9 +76,9 @@ a {
   transition: color 0.2s ease;
 }
 
-a:hover {
+/* a:hover {
   color: var(--primary);
-}
+} */
 
 button {
   font-family: inherit;

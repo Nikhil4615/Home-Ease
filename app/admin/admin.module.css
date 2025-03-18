@@ -1,0 +1,161 @@
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.statCard {
+    background: var(--background);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--foreground-rgb, 0, 0, 0), 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.statCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    opacity: 0.5;
+}
+
+.statCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.statCard h3 {
+    font-size: 1.1rem;
+    color: var(--foreground-secondary);
+    margin-bottom: 10px;
+}
+
+.statNumber {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 5px;
+}
+
+.subStat {
+    font-size: 1rem;
+    color: var(--foreground-secondary);
+    margin-bottom: 15px;
+}
+
+.statLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.statLink svg {
+    transition: transform 0.3s ease;
+}
+
+.statLink:hover {
+    color: var(--primary-dark);
+}
+
+.statLink:hover svg {
+    transform: translateX(5px);
+}
+
+.quickActions {
+    background: var(--background);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--foreground-rgb, 0, 0, 0), 0.05);
+}
+
+.quickActions h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.quickActions h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    transform: scaleX(0.7);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.quickActions:hover h2::after {
+    transform: scaleX(1);
+}
+
+.actionGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.actionButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: transparent;
+    border: 1px solid rgba(var(--foreground-rgb, 0, 0, 0), 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--foreground);
+}
+
+.actionButton svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.actionButton:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb, 0, 112, 243), 0.2);
+}
+
+.actionButton:hover svg {
+    stroke: white;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .actionGrid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .statNumber {
+        font-size: 2rem;
+    }
+} 

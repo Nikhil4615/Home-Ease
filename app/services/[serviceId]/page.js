@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import styles from '@/styles/SubServices.module.css'; // Import the CSS module
 import { Layout } from '@/components/Layout';
 import { showToast } from '@/utils/toast';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react'; // Replace useAuth with useSession
 import Image from 'next/image';
 
 const SubServicesPage = () => {
@@ -15,7 +15,7 @@ const SubServicesPage = () => {
     const [subServices, setSubServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { user } = useAuth();
+    const { data: session, status } = useSession(); // Replace useAuth with useSession
     const [selectedService, setSelectedService] = useState(null);
     const [bookingDetails, setBookingDetails] = useState({
         date: '',
@@ -78,8 +78,15 @@ const SubServicesPage = () => {
     }, [serviceId]);
 
     useEffect(() => {
-        console.log("Current user:", user);
-    }, [user]);
+        // Log authentication status
+        if (status === 'authenticated' && session) {
+            console.log("NextAuth session user:", session.user);
+        } else if (status === 'loading') {
+            console.log("NextAuth session loading...");
+        } else {
+            console.log("No NextAuth session found");
+        }
+    }, [session, status]);
 
     const validatePhoneNumber = (phone) => {
         const phoneRegex = /^\+?[1-9]\d{9,11}$/;
@@ -97,7 +104,8 @@ const SubServicesPage = () => {
     };
 
     const addToCart = (subService) => {
-        if (!user) {
+        // Check authentication using NextAuth session
+        if (status !== 'authenticated' || !session?.user) {
             showToast.warning('Please login to add items to cart');
             return;
         }
@@ -133,7 +141,8 @@ const SubServicesPage = () => {
     const handleBookingSubmit = (e) => {
         e.preventDefault();
 
-        if (!user) {
+        // Check authentication using NextAuth session
+        if (status !== 'authenticated' || !session?.user) {
             showToast.warning('Please login to make a booking');
             return;
         }
@@ -164,7 +173,7 @@ const SubServicesPage = () => {
             const cartItem = {
                 id: Date.now().toString(),
                 booking: {
-                    userId: user.id || user.email,
+                    userId: session.user.id || session.user.email,
                     serviceId: serviceId,
                     subServiceId: selectedService._id,
                     date: bookingDetails.date,
@@ -238,7 +247,7 @@ const SubServicesPage = () => {
                                     alt={'subservice image'}
                                     width={300}
                                     height={200}
-                                    objectFit="cover"
+                                    style={{ objectFit: "cover", width: "100%", height: "auto" }}
                                 />
                             </div>
                             <div className={styles.cardContent}>

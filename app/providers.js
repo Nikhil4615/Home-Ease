@@ -6,9 +6,10 @@ import { SessionProvider } from 'next-auth/react';
 export function Providers({ children }) {
     return (
         <SessionProvider>
-            <AuthProvider>
+            {/* Comment out Firebase AuthProvider to avoid auth conflicts */}
+            {/* <AuthProvider> */}
                 {children}
-            </AuthProvider>
+            {/* </AuthProvider> */}
         </SessionProvider>
     );
 } 
