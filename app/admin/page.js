@@ -14,7 +14,10 @@ export default function AdminDashboard() {
         totalUsers: 0,
         totalBookings: 0,
         activeBookings: 0,
-        totalServices: 0
+        totalServices: 0,
+        activeServices: 0,
+        totalSubServices: 0,
+        activeSubServices: 0
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -49,12 +52,13 @@ export default function AdminDashboard() {
         }
     }, [status, session]);
 
-    if (status === 'loading' || loading) {
+    if (loading) {
         return (
             <Layout>
                 <div className={styles.container}>
-                    <div className="loading-container">
-                        <div className="circular-loader"></div>
+                    <div className={adminStyles.loadingContainer}>
+                        <div className={adminStyles.circularLoader}></div>
+                        <p className={adminStyles.loadingMessage}>Loading dashboard...</p>
                     </div>
                 </div>
             </Layout>
@@ -110,8 +114,25 @@ export default function AdminDashboard() {
                     <div className={adminStyles.statCard}>
                         <h3>Services</h3>
                         <p className={adminStyles.statNumber}>{stats.totalServices}</p>
+                        <p className={adminStyles.subStat}>
+                            Active: {stats.activeServices}
+                        </p>
                         <Link href="/admin/services" className={adminStyles.statLink}>
                             Manage Services
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </Link>
+                    </div>
+
+                    <div className={adminStyles.statCard}>
+                        <h3>SubServices</h3>
+                        <p className={adminStyles.statNumber}>{stats.totalSubServices}</p>
+                        <p className={adminStyles.subStat}>
+                            Active: {stats.activeSubServices}
+                        </p>
+                        <Link href="/admin/subservices" className={adminStyles.statLink}>
+                            Manage SubServices
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M5 12h14M12 5l7 7-7 7"/>
                             </svg>
@@ -123,13 +144,20 @@ export default function AdminDashboard() {
                 <div className={adminStyles.quickActions}>
                     <h2>Quick Actions</h2>
                     <div className={adminStyles.actionGrid}>
-                        <button className={adminStyles.actionButton}>
+                        <Link href="/admin/services/create" className={adminStyles.actionButton}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M12 5v14M5 12h14"/>
                             </svg>
                             Add New Service
-                        </button>
-                        <button className={adminStyles.actionButton}>
+                        </Link>
+                        <Link href="/admin/subservices/create" className={adminStyles.actionButton}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M12 5v14M5 12h14"/>
+                                <path d="M5 5L19 19"/>
+                            </svg>
+                            Add New SubService
+                        </Link>
+                        <Link href="/admin/users" className={adminStyles.actionButton}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                                 <circle cx="9" cy="7" r="4"/>
@@ -137,8 +165,8 @@ export default function AdminDashboard() {
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                             </svg>
                             Manage Users
-                        </button>
-                        <button className={adminStyles.actionButton}>
+                        </Link>
+                        <Link href="/admin/bookings" className={adminStyles.actionButton}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                                 <line x1="16" y1="2" x2="16" y2="6"/>
@@ -146,14 +174,7 @@ export default function AdminDashboard() {
                                 <line x1="3" y1="10" x2="21" y2="10"/>
                             </svg>
                             View Bookings
-                        </button>
-                        <button className={adminStyles.actionButton}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                            </svg>
-                            Settings
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

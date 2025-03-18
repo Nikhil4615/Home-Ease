@@ -5,6 +5,7 @@ import { connectDB } from '@/lib/mongodb';
 import User from '@/models/User';
 import Booking from '@/models/Booking';
 import Service from '@/models/Service';
+import SubService from '@/models/SubService';
 
 export async function GET() {
     try {
@@ -29,18 +30,32 @@ export async function GET() {
         }
 
         // Fetch statistics
-        const [totalUsers, totalBookings, activeBookings, totalServices] = await Promise.all([
+        const [
+            totalUsers, 
+            totalBookings, 
+            activeBookings, 
+            totalServices,
+            activeServices,
+            totalSubServices,
+            activeSubServices
+        ] = await Promise.all([
             User.countDocuments(),
             Booking.countDocuments(),
             Booking.countDocuments({ status: { $nin: ['cancelled', 'completed'] } }),
-            Service.countDocuments()
+            Service.countDocuments(),
+            Service.countDocuments({ isActive: true }),
+            SubService.countDocuments(),
+            SubService.countDocuments({ isActive: true })
         ]);
 
         return NextResponse.json({
             totalUsers,
             totalBookings,
             activeBookings,
-            totalServices
+            totalServices,
+            activeServices,
+            totalSubServices,
+            activeSubServices
         });
 
     } catch (error) {
