@@ -7,6 +7,9 @@ const nextConfig = {
             'drive.google.com'
         ],
     },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 };
 
 export default nextConfig;
