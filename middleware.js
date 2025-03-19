@@ -12,9 +12,7 @@ async function userAuth(request) {
 
     // Check token existence and validity
     if (!token || !token.exp || Date.now() >= token.exp * 1000) {
-      return NextResponse.redirect(
-        new URL('/?error=unauthorized&message=Session+expired+or+invalid.+Please+login+again', request.url)
-      );
+      return NextResponse.redirect(new URL('/', request.url));
     }
 
     // Token is valid, attach it to request
@@ -22,9 +20,7 @@ async function userAuth(request) {
     return NextResponse.next();
   } catch (error) {
     console.error('User authentication error:', error);
-    return NextResponse.redirect(
-      new URL('/?error=unauthorized&message=Authentication+error.+Please+try+again', request.url)
-    );
+    return NextResponse.redirect(new URL('/', request.url));
   }
 }
 
@@ -39,16 +35,12 @@ async function adminAuth(request) {
 
     // Check token existence and validity
     if (!token || !token.exp || Date.now() >= token.exp * 1000) {
-      return NextResponse.redirect(
-        new URL('/?error=unauthorized&message=Session+expired+or+invalid.+Please+login+again', request.url)
-      );
+      return NextResponse.redirect(new URL('/', request.url));
     }
 
     // Check if the user is an admin
     if (!token.isAdmin) {
-      return NextResponse.redirect(
-        new URL('/?error=unauthorized&message=You+do+not+have+admin+privileges', request.url)
-      );
+      return NextResponse.redirect(new URL('/', request.url));
     }
 
     // Token is valid and user is admin, attach token to request
@@ -56,9 +48,7 @@ async function adminAuth(request) {
     return NextResponse.next();
   } catch (error) {
     console.error('Admin authentication error:', error);
-    return NextResponse.redirect(
-      new URL('/?error=unauthorized&message=Authentication+error.+Please+try+again', request.url)
-    );
+    return NextResponse.redirect(new URL('/', request.url));
   }
 }
 
