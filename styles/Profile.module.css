@@ -37,7 +37,9 @@
 .container:hover .title::after {
   width: 100%;
 }
-
+.noData{
+  margin: 1rem;
+}
 .profileGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;

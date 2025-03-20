@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from '@/styles/Cart.module.css';
+import serviceStyles from '@/styles/SubServices.module.css'
 import { showToast } from '@/utils/toast';
 import { Layout } from '@/components/Layout';
 
@@ -85,8 +86,11 @@ const CartPage = () => {
                 {cartItems.length === 0 ? (
                     <div className={styles.emptyCart}>
                         <p>Your cart is empty</p>
-                        <Link href="/services" className={styles.continueLink}>
-                            Browse Services
+                        <Link href="/services" className={serviceStyles.addToCartButton}>
+                            Explore Services
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
                         </Link>
                     </div>
                 ) : (

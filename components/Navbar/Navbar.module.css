@@ -3,16 +3,15 @@
     background-color: var(--background);
     color: var(--foreground);
     display: flex;
-    justify-content: space-between; /* Space between logo and buttons */
-    align-items: center; /* Center items vertically */
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    padding: 4px 20px; /* Add some padding */
+    padding: 4px 20px;
     box-shadow: var(--shadow-sm);
     position: sticky;
     top: 0;
     z-index: 1000;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* border: 1px solid white; */
 }
 
 /* New fixed navbar class */
@@ -22,7 +21,7 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(var(--background-rgb, 255, 255, 255), 0.8);
 }
 
 .navbar-left {
@@ -32,8 +31,7 @@
 }
 
 .navbar-left img {
-    height: 60px; /* Adjust logo size */
-    /* border: 1px solid red; */
+    height: 60px;
 }
 
 .site-name {
@@ -47,7 +45,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    max-width: 600px; /* Adjust as needed */
+    max-width: 600px;
 }
 
 .navbar-right {
@@ -56,9 +54,9 @@
     gap: 15px;
 }
 
-.navbar-right button:not(.logout-button):not(.login-button) {
-    background-color: white;
-    color: var(--foreground);
+.navbar-right button {
+    background-color: var(--primary);
+    color: var(--background);
     cursor: pointer;
     border-radius: var(--radius-md);
     transition: background-color 0.3s;
@@ -294,28 +292,24 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
     padding: 12px 20px;
-    background: black;
-    color: white;
+    background: var(--primary);
+    color: var(--background);
     border: none;
-    border-radius: var(--radius-md);
     cursor: pointer;
-    font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    width: 100%;
-}
-
-.logout-button:hover {
-    transform: scale(0.98);
-    background: #333;
 }
 
 .logout-button svg {
     opacity: 0.8;
     transition: all 0.3s ease;
-    color: white;
+}
+
+.logout-button:hover {
+    background: var(--primary-dark);
 }
 
 .logout-button:hover svg {
@@ -452,32 +446,25 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 20px;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
+    padding: 8px 16px;
     font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
+    border-radius: var(--radius-md);
+    background-color: var(--primary);
+    color: var(--background);
+    cursor: pointer;
     overflow: hidden;
+    position: relative;
+    border: none;
+    transition: all 0.3s ease;
 }
 
 .login-button:hover {
-    transform: scale(0.98);
-    background: #333;
-}
-
-.login-button svg {
-    opacity: 0.8;
-    transition: all 0.3s ease;
-    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb, 0, 112, 243), 0.3);
 }
 
 .login-button:hover svg {
-    transform: translateX(3px);
-    opacity: 1;
+    transform: rotate(10deg);
 }
 
 .login-button::after {
@@ -534,121 +521,18 @@
     transform: rotate(5deg);
 }
 
-.logo-link:hover .site-name::after {
-    transform: scaleX(1);
-}
-
-.logo-container:hover .site-name::after {
-    transform: scaleX(1);
-}
-
 .logo-link:hover .site-name {
     color: var(--primary);
 }
 
-/* Add loading indicator styles that were missing in the original */
-.loading-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px;
+.logo-container:hover .site-name {
+    color: var(--primary);
 }
 
-.loading-spinner {
-    width: 24px;
-    height: 24px;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top-color: var(--primary);
-    animation: spin 0.8s linear infinite;
+/* Remove any inherited button styles */
+.navbar-right .profile-circle {
+    border: none;
+    padding: 0;
+    background-color: transparent;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 4px 12px;
-    }
-
-    .navbar-left img {
-        height: 40px;
-    }
-
-    .site-name {
-        font-size: 1rem;
-    }
-
-    .navbar-center {
-        display: none;
-    }
-
-    .navbar-right {
-        gap: 8px;
-    }
-
-    .login-button, .logout-button {
-        padding: 8px 12px;
-        font-size: 0.9rem;
-    }
-
-    .profile-circle {
-        width: 36px;
-        height: 36px;
-    }
-
-    .cart-link {
-        padding: 0.3rem;
-    }
-
-    .cart-count {
-        width: 16px;
-        height: 16px;
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar {
-        padding: 4px 8px;
-    }
-
-    .navbar-left img {
-        height: 32px;
-    }
-
-    .site-name {
-        display: none;
-    }
-
-    .navbar-right {
-        gap: 6px;
-    }
-
-    .login-button, .logout-button {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-    }
-
-    .profile-circle {
-        width: 32px;
-        height: 32px;
-    }
-
-    .profile-dropdown {
-        width: 250px;
-        right: -10px;
-    }
-
-    .profile-header {
-        padding: 15px;
-    }
-
-    .profile-avatar-large {
-        width: 50px;
-        height: 50px;
-    }
-} 
