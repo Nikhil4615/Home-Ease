@@ -137,7 +137,7 @@ const Footer = () => {
             </div>
 
             <div className="copyright">
-                <p>© {new Date().getFullYear()} HomeEase. All rights reserved. Designed with ❤️ by <a href="#" className="copyrightLink">Nikhil Tiwari</a></p>
+                <p>© {new Date().getFullYear()} HomeEase. All rights reserved.</p>
             </div>
 
             <button 

@@ -75,7 +75,7 @@ const ContactPage = () => {
               </div>
               <h3>Email</h3>
               <p>nikhiltiwari7424@gmail.com</p>
-              <p>aniruddhjain25@gmail.com</p>
+              <p>masaudsaud60@gmail.com</p>
             </div>
             
             <div className={styles.infoCard}>
